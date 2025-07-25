@@ -4,11 +4,11 @@
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
  <meta name="theme-color" content="#000"/>
- <title>Affiliate Signup</title>
+ <title>Affiliate Sign-Up</title>
  <link rel="manifest" href="manifest.json" />
  <style>
-   body { margin: 0; font-family: sans-serif; background: #111; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; padding: 1em; }
-   h1 { font-size: 1.5em; margin-bottom: 0.5em; }
+   body { margin: 0; font-family: sans-serif; background: #111; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1em; text-align: center; }
+   h1 { font-size: 1.6em; margin-bottom: 0.5em; }
    input[type="tel"] {
      padding: 0.8em;
      font-size: 1em;
@@ -28,23 +28,27 @@
      border-radius: 8px;
      cursor: pointer;
      font-weight: bold;
+     margin-bottom: 1em;
    }
-   .output {
-     margin-top: 2em;
+   .links { margin-top: 2em; width: 100%; max-width: 400px; text-align: left; }
+   .links div {
+     background: #222;
+     margin: 0.3em 0;
+     padding: 0.8em;
+     border-radius: 6px;
+     font-size: 0.95em;
      word-break: break-all;
    }
-   a.link {
-     color: #0f0;
-     font-weight: bold;
-   }
+   a { color: #0f0; font-weight: bold; text-decoration: none; }
  </style>
 </head>
 <body>
- <h1>📲 Affiliate Link Generator</h1>
- <p>Enter your phone number to get your referral link:</p>
+ <h1>📲 Become an Affiliate</h1>
+ <p>Enter your phone number to get $9 sale links:</p>
  <input type="tel" id="phone" placeholder="e.g. 1234567890" />
- <button onclick="generate()">Generate Link</button>
- <div class="output" id="output"></div>
+ <button onclick="generate()">Generate Links</button>
+
+ <div class="links" id="output"></div>
 
  <script>
    function generate() {
@@ -53,12 +57,22 @@
        alert("Please enter a valid phone number.");
        return;
      }
-     const base = "https://buy.stripe.com/28ocNTasB6NQ54kcMM";
-     const link = `${base}?ref=${phone}`;
-     document.getElementById('output').innerHTML = `
-       ✅ Your link:<br/>
-       <a href="${link}" class="link" target="_blank">${link}</a>
-     `;
+
+     const links = [
+       { name: "🤖 RayBOT Chat", url: "https://buy.stripe.com/28ocNTasB6NQ54kcMM" },
+       { name: "🔐 Journal", url: "https://buy.stripe.com/9AQ6qJ4Ika5K5BK8ww" },
+       { name: "🎤 Memo Vault", url: "https://buy.stripe.com/fZecOpdVy4Tk54kcMP" },
+       { name: "🎨 Art Generator", url: "https://buy.stripe.com/cN27vZ3cI7jg5BK4gz" },
+       { name: "📊 Finance Tracker", url: "https://buy.stripe.com/00g02z2uy5Tk7KEdR2" }
+     ];
+
+     let html = "";
+     links.forEach(app => {
+       const fullLink = `${app.url}?ref=${phone}`;
+       html += `<div><strong>${app.name}</strong><br/><a href="${fullLink}" target="_blank">${fullLink}</a></div>`;
+     });
+
+     document.getElementById('output').innerHTML = html;
    }
  </script>
 
